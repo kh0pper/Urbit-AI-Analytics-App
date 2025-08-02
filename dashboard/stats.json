@@ -1,0 +1,10 @@
+{
+  "total_discovered": 209,
+  "new_groups": 206,
+  "currently_monitoring": 25,
+  "last_discovery": "2025-08-02 23:32:25",
+  "system_status": "operational",
+  "discovery_methods": 5,
+  "high_priority_count": 66,
+  "last_updated": "2025-08-02T23:41:01.428812"
+}

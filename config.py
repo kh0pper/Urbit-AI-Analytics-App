@@ -42,7 +42,12 @@ MONITORED_GROUPS = [
     "/ship/~litmyl-nopmet/general",
     "/ship/~litmyl-nopmet/testing",
     # Auto-discovered: 2025-08-02
-    "/ship/~zod/general"
+    "/ship/~zod/general",
+    # Popular public groups to try:
+    "/ship/~libset-rirbep/landscape",
+    "/ship/~dister-dozzod-basbys/urbitfoundation",
+    "/ship/~sogryp-dister-dozzod-dozzod/network-states",
+    "/ship/~pindet-timmut/hackroom"
 ]
 
 # Analytics Configuration

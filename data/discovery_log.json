@@ -1,0 +1,58 @@
+{
+  "last_discovery": "2025-08-02T17:50:32.744397",
+  "discovered_groups": [
+    "/ship/~zod/general",
+    "/ship/~darrux-landes/the-forge",
+    "/ship/~bitbet-bolbel/urbit-community"
+  ],
+  "auto_added_groups": [
+    "/ship/~zod/general",
+    "/ship/~darrux-landes/the-forge",
+    "/ship/~bitbet-bolbel/urbit-community"
+  ],
+  "discovery_history": [
+    {
+      "timestamp": "2025-08-02T17:50:32.744397",
+      "total_discovered": 3,
+      "new_groups": 3,
+      "auto_added": 3
+    }
+  ],
+  "discoveries": [
+    {
+      "timestamp": "2025-08-02 23:32:25",
+      "total_discovered": 209,
+      "new_groups": 206,
+      "methods_used": [
+        "web_interface",
+        "known_patterns",
+        "community_hubs",
+        "ship_exploration",
+        "all_groups"
+      ],
+      "top_new_groups": [
+        "/ship/~pindet-timmut/announcements",
+        "/ship/~libset-rirbep/general",
+        "/ship/~halbex-palheb/help",
+        "/ship/~halbex-palheb/links",
+        "/ship/~litmyl-nopmet/help",
+        "/ship/~litmyl-nopmet/lounge",
+        "/ship/~zod/discussion",
+        "/ship/~nattyv/intro",
+        "/ship/~darrux-landes/discussion",
+        "/ship/~halbex-palheb/welcome",
+        "/ship/~haddef-sigwen/lobby",
+        "/ship/~libset-rirbep/community",
+        "/ship/~dister-dozzod-basbys/community",
+        "/ship/~bitbet-bolbel/chat",
+        "/ship/~darrux-landes/random",
+        "/ship/~nattyv/general",
+        "/ship/~dister-dozzod-basbys/help",
+        "/ship/~zod/lobby",
+        "/ship/~darrux-landes/chat",
+        "/ship/~pindet-timmut/welcome"
+      ]
+    }
+  ],
+  "last_updated": "2025-08-02T23:36:26.981491"
+}
