@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Urbit Cookie Extractor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .cookie-value {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            word-break: break-all;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 16px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .error {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .instructions {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 Urbit Cookie Extractor</h1>
+        <p>This tool will extract your session cookie for the Urbit AI Analytics system.</p>
+        
+        <div class="instructions">
+            <h3>📋 Instructions:</h3>
+            <ol>
+                <li>Make sure you're logged into your Urbit ship (~litmyl-nopmet)</li>
+                <li>Click "Extract Cookie" below</li>
+                <li>Copy the cookie value that appears</li>
+                <li>Send it to me to configure your system</li>
+            </ol>
+        </div>
+
+        <button class="button" onclick="extractCookie()">🔍 Extract Cookie</button>
+        <button class="button" onclick="copyToClipboard()">📋 Copy Cookie</button>
+        <button class="button" onclick="clearResult()">🗑️ Clear</button>
+
+        <div id="result"></div>
+        
+        <div class="instructions">
+            <h3>🛡️ Security Note:</h3>
+            <p>Your cookie is only processed in your browser and is never sent to any external server. This tool runs entirely locally.</p>
+        </div>
+    </div>
+
+    <script>
+        let extractedCookie = '';
+
+        function extractCookie() {
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                // Get all cookies
+                const cookies = document.cookie.split(';');
+                let urbitCookie = '';
+                
+                // Look for the Urbit auth cookie
+                for (let cookie of cookies) {
+                    cookie = cookie.trim();
+                    if (cookie.startsWith('urbauth-~litmyl-nopmet=')) {
+                        urbitCookie = cookie.split('=')[1];
+                        break;
+                    }
+                }
+                
+                if (urbitCookie) {
+                    extractedCookie = urbitCookie;
+                    resultDiv.innerHTML = `
+                        <h3 class="success">✅ Cookie Found!</h3>
+                        <p><strong>Cookie Name:</strong> urbauth-~litmyl-nopmet</p>
+                        <p><strong>Cookie Value:</strong></p>
+                        <div class="cookie-value" id="cookieValue">${urbitCookie}</div>
+                        <p class="success">✅ Copy this value and send it to configure your system!</p>
+                    `;
+                } else {
+                    // Show all cookies to help debug
+                    resultDiv.innerHTML = `
+                        <h3 class="error">❌ Urbit Cookie Not Found</h3>
+                        <p>Looking for: <code>urbauth-~litmyl-nopmet</code></p>
+                        <p><strong>All cookies found:</strong></p>
+                        <div class="cookie-value">${document.cookie || 'No cookies found'}</div>
+                        <p class="error">Make sure you're logged into your Urbit ship first!</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3 class="error">❌ Error</h3>
+                    <p>Failed to extract cookie: ${error.message}</p>
+                `;
+            }
+        }
+
+        function copyToClipboard() {
+            if (extractedCookie) {
+                // Try different clipboard methods for mobile compatibility
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(extractedCookie).then(() => {
+                        alert('✅ Cookie copied to clipboard!');
+                    }).catch(() => {
+                        fallbackCopy();
+                    });
+                } else {
+                    fallbackCopy();
+                }
+            } else {
+                alert('❌ No cookie to copy. Extract the cookie first.');
+            }
+        }
+
+        function fallbackCopy() {
+            // Fallback method for mobile browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = extractedCookie;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                alert('✅ Cookie copied to clipboard!');
+            } catch (err) {
+                alert('❌ Could not copy automatically. Please manually copy the cookie value above.');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        function clearResult() {
+            document.getElementById('result').innerHTML = '';
+            extractedCookie = '';
+        }
+
+        // Auto-extract on page load if we're on the right domain
+        window.onload = function() {
+            if (window.location.hostname === '100.90.185.114' || window.location.hostname === 'localhost') {
+                setTimeout(extractCookie, 1000);
+            }
+        };
+    </script>
+</body>
+</html>
