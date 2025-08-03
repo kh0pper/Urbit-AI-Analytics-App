@@ -21,7 +21,7 @@ try:
 except ImportError:
     OpenAI = None
 
-from llama_client import LlamaClient
+from .llama_client import LlamaClient
 import config
 
 logger = logging.getLogger(__name__)

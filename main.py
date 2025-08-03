@@ -1,58 +1,51 @@
+#!/usr/bin/env python3
 """
-Main application for Urbit AI Analytics & Monitoring System
+Simplified Urbit AI Analytics & Monitoring System
+Clean, focused implementation for monitoring Urbit groups
 """
-import asyncio
-import schedule
 import time
 import logging
+import sys
+import json
 from datetime import datetime
 from typing import List, Dict
-import json
-import traceback
 
-from urbit_client import UrbitClient
-from ai_analyzer import AIAnalyzer  
-from data_collector import DataCollector
-from group_discovery import GroupDiscovery
-from dynamic_config_manager import DynamicConfigManager
-from fixed_messaging import FixedUrbitMessenger
-from github_uploader import GitHubUploader
+from src.urbit_client import UrbitClient
+from src.ai_analyzer import AIAnalyzer  
+from src.data_collector import DataCollector
 import config
 
 # Setup logging
 logging.basicConfig(
-    level=getattr(logging, config.LOG_LEVEL),
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(config.LOG_FILE),
+        logging.FileHandler('logs/urbit_analytics.log'),
         logging.StreamHandler()
     ]
 )
 logger = logging.getLogger(__name__)
 
-class UrbitAnalyticsMonitor:
+class UrbitAnalyticsApp:
+    """Simplified Urbit Analytics Application"""
+    
     def __init__(self):
         self.urbit_client = None
         self.ai_analyzer = AIAnalyzer()
         self.data_collector = DataCollector(config.DATA_DIR)
-        self.group_discovery = GroupDiscovery()
-        self.config_manager = DynamicConfigManager()
-        self.messenger = FixedUrbitMessenger()
-        self.github_uploader = GitHubUploader()
         self.is_running = False
-        self.monitored_targets = []  # Dynamic list of groups/channels
         
     def initialize(self) -> bool:
-        """Initialize connections and verify configuration"""
-        logger.info("Initializing Urbit AI Analytics Monitor...")
+        """Initialize the application"""
+        logger.info("🚀 Initializing Urbit AI Analytics...")
         
         # Check configuration
         if not config.LLAMA_API_KEY:
-            logger.error("LLAMA_API_KEY not configured")
+            logger.error("❌ LLAMA_API_KEY not configured")
             return False
             
         if not config.URBIT_SHIP_URL or not config.URBIT_SESSION_COOKIE:
-            logger.error("Urbit connection parameters not configured")
+            logger.error("❌ Urbit connection parameters not configured")
             return False
         
         # Initialize Urbit client
@@ -62,102 +55,28 @@ class UrbitAnalyticsMonitor:
                 config.URBIT_SESSION_COOKIE
             )
             
-            if not self.urbit_client.authenticate():
-                logger.error("Failed to authenticate with Urbit ship")
+            if self.urbit_client.authenticate():
+                logger.info("✅ Connected to Urbit ship")
+                return True
+            else:
+                logger.error("❌ Failed to authenticate with Urbit ship")
                 return False
                 
-            logger.info("Successfully connected to Urbit ship")
-            
         except Exception as e:
-            logger.error(f"Failed to initialize Urbit client: {e}")
+            logger.error(f"❌ Failed to initialize Urbit client: {e}")
             return False
-        
-        # Test AI analyzer
-        try:
-            # Quick test call
-            test_activities = [{
-                'author': '~test-ship',
-                'content': 'Test message for AI analyzer',
-                'timestamp': datetime.now().isoformat(),
-                'type': 'message'
-            }]
-            
-            test_result = self.ai_analyzer.analyze_group_activity(
-                "test-group", test_activities, 1
-            )
-            
-            if 'ai_analysis' in test_result:
-                logger.info("AI Analyzer working correctly")
-            else:
-                logger.warning("AI Analyzer test returned unexpected result")
-                
-        except Exception as e:
-            logger.error(f"AI Analyzer test failed: {e}")
-            # Continue anyway - non-critical for startup
-        
-        return True
     
-    def refresh_monitored_targets(self):
-        """Dynamically discover and update the list of monitored groups/channels"""
-        logger.info("🔍 Refreshing monitored targets...")
+    def monitor_groups(self) -> Dict:
+        """Monitor all configured groups and collect activity"""
+        logger.info(f"📊 Monitoring {len(config.MONITORED_GROUPS)} groups...")
         
-        try:
-            # Discover all available groups
-            discovered_groups = self.group_discovery.discover_all_groups()
-            logger.info(f"🌐 Discovered {len(discovered_groups)} total groups on network")
-            
-            # Auto-add promising new groups to config
-            if discovered_groups:
-                auto_added = self.config_manager.filter_and_add_promising_groups(discovered_groups)
-                if auto_added:
-                    logger.info(f"➕ Auto-added {len(auto_added)} promising groups to monitoring")
-                    
-                    # Reload config to get updated groups
-                    import importlib
-                    importlib.reload(config)
-            
-            # Get all current groups and channels (including newly added ones)
-            new_targets = self.group_discovery.get_all_monitorable_targets()
-            
-            # Check for new targets
-            added_targets = set(new_targets) - set(self.monitored_targets)
-            removed_targets = set(self.monitored_targets) - set(new_targets)
-            
-            if added_targets:
-                logger.info(f"➕ Found {len(added_targets)} new targets: {list(added_targets)[:3]}{'...' if len(added_targets) > 3 else ''}")
-                
-            if removed_targets:
-                logger.info(f"➖ Removed {len(removed_targets)} targets: {list(removed_targets)[:3]}{'...' if len(removed_targets) > 3 else ''}")
-            
-            # Update the monitored list
-            self.monitored_targets = new_targets
-            
-            # Save discovery results for reference
-            self.group_discovery.save_discovery_results("data/latest_discovery.json")
-            
-            # Show discovery stats
-            stats = self.config_manager.get_discovery_stats()
-            logger.info(f"📊 Discovery stats: {stats['total_discovered']} discovered, {stats['auto_added']} auto-added, {len(self.monitored_targets)} monitoring")
-            
-        except Exception as e:
-            logger.error(f"Error refreshing monitored targets: {e}")
-            # Fallback to config file groups if discovery fails
-            if not self.monitored_targets:
-                self.monitored_targets = config.MONITORED_GROUPS
-                logger.info(f"Using fallback groups from config: {len(self.monitored_targets)} groups")
-    
-    def monitor_groups(self):
-        """Monitor all configured groups and collect activity data"""
-        # Refresh targets periodically (every hour during monitoring)
-        if not self.monitored_targets or datetime.now().minute == 0:
-            self.refresh_monitored_targets()
+        total_activities = 0
+        active_groups = 0
+        group_analyses = []
         
-        targets_to_monitor = self.monitored_targets or config.MONITORED_GROUPS
-        logger.info(f"Starting group monitoring cycle for {len(targets_to_monitor)} targets")
-        
-        for group_path in targets_to_monitor:
+        for group_path in config.MONITORED_GROUPS:
             try:
-                logger.info(f"Monitoring group: {group_path}")
+                logger.info(f"🔍 Checking: {group_path}")
                 
                 # Get recent activity
                 activities = self.urbit_client.get_group_activity(
@@ -165,279 +84,234 @@ class UrbitAnalyticsMonitor:
                     config.ACTIVITY_LOOKBACK_HOURS
                 )
                 
-                logger.info(f"Found {len(activities)} activities in {group_path}")
+                total_activities += len(activities)
                 
-                # Store raw activity data
-                self.data_collector.store_group_activity(group_path, activities)
-                
-                # Analyze if we have enough activity
-                if len(activities) >= config.MIN_MESSAGES_FOR_ANALYSIS:
-                    logger.info(f"Analyzing activity for {group_path}")
+                if activities:
+                    active_groups += 1
+                    logger.info(f"  📈 {len(activities)} activities found")
                     
-                    analysis = self.ai_analyzer.analyze_group_activity(
-                        group_path,
-                        activities,
-                        config.ACTIVITY_LOOKBACK_HOURS
-                    )
+                    # Store activity data
+                    self.data_collector.store_group_activity(group_path, activities)
                     
-                    # Store analysis results
-                    self.data_collector.store_analysis_result(group_path, analysis)
-                    
-                    logger.info(f"Analysis completed for {group_path}")
-                    
+                    # Analyze if enough activity
+                    if len(activities) >= config.MIN_MESSAGES_FOR_ANALYSIS:
+                        analysis = self.ai_analyzer.analyze_group_activity(
+                            group_path, activities, config.ACTIVITY_LOOKBACK_HOURS
+                        )
+                        group_analyses.append(analysis)
+                        self.data_collector.store_analysis_result(group_path, analysis)
+                        logger.info(f"  🧠 Analysis completed")
                 else:
-                    logger.info(f"Insufficient activity in {group_path} for analysis ({len(activities)} messages)")
+                    logger.info(f"  💤 No recent activity")
                 
-                # Small delay between groups to be respectful
-                time.sleep(2)
+                time.sleep(1)  # Be respectful
                 
             except Exception as e:
-                logger.error(f"Error monitoring group {group_path}: {e}")
-                logger.error(traceback.format_exc())
-    
-    def generate_and_send_report(self):
-        """Generate AI analysis report and send to configured recipient"""
-        logger.info("Generating comprehensive report...")
+                logger.error(f"❌ Error monitoring {group_path}: {e}")
         
-        try:
-            # Collect analyses from all groups
-            group_analyses = []
-            
-            targets_to_analyze = self.monitored_targets or config.MONITORED_GROUPS
-            for group_path in targets_to_analyze:
-                recent_activities = self.data_collector.get_recent_activity(
-                    group_path,
-                    config.ACTIVITY_LOOKBACK_HOURS
-                )
-                
-                if len(recent_activities) >= config.MIN_MESSAGES_FOR_ANALYSIS:
-                    analysis = self.ai_analyzer.analyze_group_activity(
-                        group_path,
-                        recent_activities,
-                        config.ACTIVITY_LOOKBACK_HOURS
-                    )
-                    group_analyses.append(analysis)
-            
-            if not group_analyses:
-                logger.info("No activity to report")
-                return
-            
-            # Generate comprehensive summary
-            summary_report = self.ai_analyzer.generate_comprehensive_summary(group_analyses)
-            
-            # Add network overview
-            network_stats = self.data_collector.get_network_overview()
-            
-            full_report = f"""🤖 **Urbit Network Analytics Report**
-📊 **Generated**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-📈 **Monitoring**: {network_stats['total_groups_monitored']} groups ({network_stats['active_groups_24h']} active)
-
-{summary_report}
-
----
-*Powered by AI Analytics & Monitoring System*
-*Total activities analyzed: {network_stats['total_activities_collected']}*
-"""
-            
-            # Save report
-            report_path = self.data_collector.save_report(full_report, "daily")
-            logger.info(f"Report saved to: {report_path}")
-            
-            # Display report in terminal (since Urbit messaging has issues)
-            print("\n" + "="*80)
-            print("📊 URBIT AI ANALYTICS REPORT")
-            print("="*80)
-            print(full_report)
-            print("="*80)
-            print(f"⏰ Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-            print("📁 Full report saved to:", report_path)
-            print("="*80 + "\n")
-            
-            # Try to send to Urbit ship using the improved messaging system
-            if config.URBIT_RECIPIENT_SHIP:
-                try:
-                    # Create a concise version for messaging
-                    concise_report = f"""🤖 **Urbit AI Analytics Report**
-
-📊 **Generated**: {datetime.now().strftime('%H:%M')}
-📈 **Network**: {network_stats['active_groups_24h']} active groups
-🔍 **Activities**: {network_stats['total_activities_collected']} analyzed
-
-{summary_report[:300]}...
-
-📁 **Full Report**: Check data/reports/ folder
-🚀 **Status**: System operational
-
-*Auto-generated by AI Analytics*"""
-
-                    success = self.messenger.comprehensive_fixed_delivery(concise_report)
-                    
-                    if success:
-                        logger.info(f"Report successfully delivered to {config.URBIT_RECIPIENT_SHIP}")
-                        print(f"✅ Report delivered to your Urbit ship!")
-                    else:
-                        logger.info(f"Report saved locally for manual delivery to {config.URBIT_RECIPIENT_SHIP}")
-                        print(f"📁 Report saved for manual delivery - check data/pending_messages/")
-                        
-                except Exception as e:
-                    logger.warning(f"Messaging system error: {e} - report displayed above")
-            
-            # Upload to GitHub if configured
+        return {
+            'total_activities': total_activities,
+            'active_groups': active_groups,
+            'total_groups': len(config.MONITORED_GROUPS),
+            'analyses': group_analyses
+        }
+    
+    def generate_report(self, monitoring_results: Dict) -> str:
+        """Generate a comprehensive analytics report"""
+        logger.info("📝 Generating report...")
+        
+        # Generate AI summary if we have analyses
+        ai_summary = ""
+        if monitoring_results['analyses']:
             try:
-                github_setup = self.github_uploader.check_setup()
-                if github_setup['repo_accessible']:
-                    logger.info("📤 Uploading report to GitHub...")
-                    
-                    # Upload the full report
-                    if self.github_uploader.upload_report(report_path, full_report):
-                        logger.info("✅ Report uploaded to GitHub successfully")
-                        print(f"🌐 Report available at: https://github.com/{self.github_uploader.repo_owner}/{self.github_uploader.repo_name}")
-                    
-                    # Upload analytics summary
-                    stats = self.data_collector.get_network_overview()
-                    discovery_stats = self.config_manager.get_discovery_stats()
-                    combined_stats = {**stats, **discovery_stats}
-                    
-                    self.github_uploader.upload_analytics_summary(combined_stats)
-                    
-                    # Upload discovery log
-                    discovery_log = self.config_manager.load_discovery_log()
-                    self.github_uploader.upload_discovery_log(discovery_log)
-                    
-                    # Update web dashboard
-                    self.github_uploader.create_web_dashboard()
-                    
-                    print(f"📊 Analytics dashboard updated: https://{self.github_uploader.repo_owner}.github.io/{self.github_uploader.repo_name}/dashboard/")
-                    
-                else:
-                    logger.info("GitHub not configured - skipping upload")
-                    
+                ai_summary = self.ai_analyzer.generate_comprehensive_summary(
+                    monitoring_results['analyses']
+                )
             except Exception as e:
-                logger.warning(f"GitHub upload error: {e}")
-                print("⚠️ GitHub upload failed - reports saved locally")
-            
-            logger.info("Report generation completed")
-            
-        except Exception as e:
-            logger.error(f"Error generating report: {e}")
-            logger.error(traceback.format_exc())
-    
-    def run_analytics_cycle(self):
-        """Run a complete analytics cycle"""
-        logger.info("=== Starting Analytics Cycle ===")
+                logger.warning(f"AI summary generation failed: {e}")
+                ai_summary = "AI analysis unavailable"
         
-        try:
-            # Monitor groups and collect data
-            self.monitor_groups()
-            
-            # Generate and send report
-            self.generate_and_send_report()
-            
-            # Cleanup old data (once daily)
-            if datetime.now().hour == 3:  # 3 AM cleanup
-                logger.info("Running daily data cleanup...")
-                self.data_collector.cleanup_old_data(days_to_keep=30)
-            
-            logger.info("=== Analytics Cycle Complete ===")
-            
-        except Exception as e:
-            logger.error(f"Error in analytics cycle: {e}")
-            logger.error(traceback.format_exc())
+        # Create report
+        report = f"""🤖 **Urbit AI Analytics Report**
+
+📊 **Generated**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+📈 **Network Status**: {monitoring_results['active_groups']}/{monitoring_results['total_groups']} groups active
+🔍 **Activities Collected**: {monitoring_results['total_activities']} messages
+
+## 🧠 AI Analysis Summary
+
+{ai_summary if ai_summary else 'No significant activity to analyze'}
+
+## 📊 Monitoring Statistics
+
+- **Total Groups Monitored**: {monitoring_results['total_groups']}
+- **Active Groups (24h)**: {monitoring_results['active_groups']}
+- **Total Activities**: {monitoring_results['total_activities']}
+- **Analyses Generated**: {len(monitoring_results['analyses'])}
+
+## 📋 Monitored Groups
+
+"""
+        
+        for i, group in enumerate(config.MONITORED_GROUPS, 1):
+            report += f"{i:2d}. `{group}`\n"
+        
+        report += f"""
+---
+*Generated by Urbit AI Analytics System*
+*{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*
+"""
+        
+        return report
     
-    def start_monitoring(self):
-        """Start the monitoring system with scheduled runs"""
+    def run_analysis_cycle(self):
+        """Run a complete monitoring and analysis cycle"""
+        logger.info("🔄 Starting analysis cycle...")
+        
+        # Monitor all groups
+        results = self.monitor_groups()
+        
+        # Generate report
+        report = self.generate_report(results)
+        
+        # Save report
+        report_file = self.data_collector.save_report(report, "cycle")
+        logger.info(f"📁 Report saved: {report_file}")
+        
+        # Display report
+        print("\n" + "="*60)
+        print("📊 URBIT AI ANALYTICS REPORT")
+        print("="*60)
+        print(report)
+        print("="*60 + "\n")
+        
+        logger.info("✅ Analysis cycle complete")
+        return results
+    
+    def test_system(self):
+        """Test system functionality"""
+        print("🧪 Testing Urbit AI Analytics System...")
+        
         if not self.initialize():
-            logger.error("Failed to initialize monitoring system")
+            print("❌ Initialization failed")
             return False
         
-        logger.info("Starting Urbit AI Analytics Monitoring System...")
-        logger.info(f"Monitoring {len(config.MONITORED_GROUPS)} groups")
-        logger.info(f"Analysis interval: {config.ANALYSIS_INTERVAL_MINUTES} minutes")
-        logger.info(f"Lookback period: {config.ACTIVITY_LOOKBACK_HOURS} hours")
+        print("✅ Initialization successful")
         
-        # Schedule regular monitoring
-        schedule.every(config.ANALYSIS_INTERVAL_MINUTES).minutes.do(self.run_analytics_cycle)
+        # Test monitoring
+        try:
+            results = self.run_analysis_cycle()
+            print(f"✅ Monitoring test complete: {results['active_groups']} active groups")
+            return True
+        except Exception as e:
+            print(f"❌ Monitoring test failed: {e}")
+            return False
+    
+    def start_continuous_monitoring(self):
+        """Start continuous monitoring with periodic reports"""
+        if not self.initialize():
+            return False
         
-        # Schedule daily comprehensive report
-        schedule.every().day.at("09:00").do(self.generate_and_send_report)
-        
-        # Run initial cycle
-        self.run_analytics_cycle()
+        logger.info("🚀 Starting continuous monitoring...")
+        logger.info(f"📊 Monitoring {len(config.MONITORED_GROUPS)} groups")
+        logger.info(f"⏰ Analysis interval: {config.ANALYSIS_INTERVAL_MINUTES} minutes")
         
         self.is_running = True
         
         try:
             while self.is_running:
-                schedule.run_pending()
-                time.sleep(60)  # Check every minute
+                # Run analysis cycle
+                self.run_analysis_cycle()
+                
+                # Wait for next cycle
+                logger.info(f"⏳ Waiting {config.ANALYSIS_INTERVAL_MINUTES} minutes for next cycle...")
+                
+                for _ in range(config.ANALYSIS_INTERVAL_MINUTES * 60):
+                    if not self.is_running:
+                        break
+                    time.sleep(1)
                 
         except KeyboardInterrupt:
-            logger.info("Received shutdown signal")
-            self.stop_monitoring()
+            logger.info("🛑 Received shutdown signal")
+            self.stop()
         except Exception as e:
-            logger.error(f"Unexpected error in main loop: {e}")
-            self.stop_monitoring()
+            logger.error(f"❌ Unexpected error: {e}")
+            self.stop()
     
-    def stop_monitoring(self):
+    def stop(self):
         """Stop the monitoring system"""
-        logger.info("Stopping monitoring system...")
+        logger.info("🛑 Stopping monitoring system...")
         self.is_running = False
         
         if self.urbit_client:
-            self.urbit_client.close_channel()
+            # Clean shutdown
+            pass
         
-        logger.info("Monitoring system stopped")
+        logger.info("✅ System stopped")
     
-    def get_status(self) -> Dict:
-        """Get current status of the monitoring system"""
-        network_stats = self.data_collector.get_network_overview()
-        
-        return {
-            "is_running": self.is_running,
-            "monitored_groups": config.MONITORED_GROUPS,
-            "analysis_interval": config.ANALYSIS_INTERVAL_MINUTES,
-            "network_stats": network_stats,
-            "next_scheduled_run": str(schedule.next_run()) if schedule.jobs else None
+    def get_status(self):
+        """Get current system status"""
+        status = {
+            "system": "Urbit AI Analytics",
+            "running": self.is_running,
+            "monitored_groups": len(config.MONITORED_GROUPS),
+            "groups": config.MONITORED_GROUPS,
+            "config": {
+                "analysis_interval": config.ANALYSIS_INTERVAL_MINUTES,
+                "lookback_hours": config.ACTIVITY_LOOKBACK_HOURS,
+                "min_messages": config.MIN_MESSAGES_FOR_ANALYSIS
+            },
+            "timestamp": datetime.now().isoformat()
         }
+        return status
 
 def main():
     """Main entry point"""
-    print("🤖 Urbit AI Analytics & Monitoring System")
-    print("=" * 50)
+    print("🤖 Urbit AI Analytics System")
+    print("=" * 40)
     
-    monitor = UrbitAnalyticsMonitor()
+    app = UrbitAnalyticsApp()
     
     # Command line interface
-    import sys
     if len(sys.argv) > 1:
         command = sys.argv[1].lower()
         
-        if command == "status":
-            status = monitor.get_status()
+        if command == "test":
+            print("🧪 Running system test...")
+            success = app.test_system()
+            sys.exit(0 if success else 1)
+            
+        elif command == "status":
+            print("📊 System Status:")
+            status = app.get_status()
             print(json.dumps(status, indent=2))
             return
             
-        elif command == "test":
-            print("Running system test...")
-            if monitor.initialize():
-                print("✅ System test passed")
-                monitor.run_analytics_cycle()
-            else:
-                print("❌ System test failed")
+        elif command == "once":
+            print("🔄 Running single analysis cycle...")
+            if app.initialize():
+                app.run_analysis_cycle()
             return
             
-        elif command == "export":
-            print("Exporting data...")
-            collector = DataCollector(config.DATA_DIR)
-            export_file = collector.export_data()
-            print(f"Data exported to: {export_file}")
+        elif command == "discover":
+            print("🔍 Running group discovery...")
+            try:
+                import subprocess
+                subprocess.run([sys.executable, "tools/smart_group_discovery.py"])
+            except Exception as e:
+                print(f"❌ Discovery failed: {e}")
             return
     
-    # Default: start monitoring
+    # Default: start continuous monitoring
+    print("🚀 Starting continuous monitoring...")
+    print("💡 Use Ctrl+C to stop")
+    print("📖 Commands: test, status, once, discover")
+    print("-" * 40)
+    
     try:
-        monitor.start_monitoring()
+        app.start_continuous_monitoring()
     except Exception as e:
-        logger.error(f"Failed to start monitoring: {e}")
+        logger.error(f"Failed to start: {e}")
         print(f"❌ Failed to start: {e}")
 
 if __name__ == "__main__":
