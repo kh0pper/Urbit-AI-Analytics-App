@@ -1,0 +1,999 @@
+{
+  "recent_activity": [
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-02T02:43:45.448486",
+      "author": "~sampel-palnet",
+      "content": "Building a new marketplace on Urbit",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-02T02:40:45.448486",
+      "author": "~zod",
+      "content": "The latest kernel update looks promising",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-02T01:41:16.185345",
+      "author": "~wes",
+      "content": "Building a new chat interface, any feedback?",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-02T01:38:16.185345",
+      "author": "~sampel-palnet",
+      "content": "Working on some interesting AI integrations",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-02T01:21:16.185345",
+      "author": "~wes",
+      "content": "Love how stable the network has become",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-02T00:51:45.448486",
+      "author": "~litmyl-nopmet",
+      "content": "Love how stable the network has become",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-02T00:20:16.185345",
+      "author": "~bud",
+      "content": "The developer tools keep getting better",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T23:58:16.185345",
+      "author": "~litmyl-nopmet",
+      "content": "Just finished reading the Urbit whitepaper - mind blown!",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T23:57:48.959971",
+      "author": "~zod",
+      "content": "Excited about the upcoming Urbit conference",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T23:48:48.959971",
+      "author": "~litmyl-nopmet",
+      "content": "Building a new marketplace on Urbit",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T23:36:16.185345",
+      "author": "~nec",
+      "content": "Working on some interesting AI integrations",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-01T23:28:45.448486",
+      "author": "~wes",
+      "content": "The latest kernel update looks promising",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T22:53:48.959971",
+      "author": "~sampel-palnet",
+      "content": "The latest kernel update looks promising",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T22:37:16.185345",
+      "author": "~bud",
+      "content": "Working on some interesting AI integrations",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-01T22:37:16.185345",
+      "author": "~bud",
+      "content": "Working on some interesting AI integrations",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-01T22:27:45.448486",
+      "author": "~nec",
+      "content": "The developer tools keep getting better",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T22:26:48.959971",
+      "author": "~bud",
+      "content": "Mars is looking more habitable every day",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-01T22:26:45.448486",
+      "author": "~nec",
+      "content": "The network feels much faster lately",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-01T22:06:45.448486",
+      "author": "~litmyl-nopmet",
+      "content": "Excited about the upcoming Urbit conference",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T21:59:48.959971",
+      "author": "~nec",
+      "content": "Urbit's approach to identity is revolutionary",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-01T21:47:45.448486",
+      "author": "~zod",
+      "content": "Mars is looking more habitable every day",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T21:47:16.185345",
+      "author": "~zod",
+      "content": "Just spawned my first moon!",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-01T21:47:16.185345",
+      "author": "~zod",
+      "content": "Just spawned my first moon!",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T21:34:16.185345",
+      "author": "~litmyl-nopmet",
+      "content": "The developer tools keep getting better",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-01T21:34:16.185345",
+      "author": "~litmyl-nopmet",
+      "content": "The developer tools keep getting better",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T21:29:45.448486",
+      "author": "~litmyl-nopmet",
+      "content": "Mars is looking more habitable every day",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-01T21:29:45.448486",
+      "author": "~litmyl-nopmet",
+      "content": "Mars is looking more habitable every day",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-01T21:29:45.448486",
+      "author": "~litmyl-nopmet",
+      "content": "Mars is looking more habitable every day",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T21:27:45.448486",
+      "author": "~sampel-palnet",
+      "content": "New to Urbit, where should I start?",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T21:27:45.448486",
+      "author": "~litmyl-nopmet",
+      "content": "Building a new marketplace on Urbit",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-01T21:27:45.448486",
+      "author": "~sampel-palnet",
+      "content": "New to Urbit, where should I start?",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-01T21:27:45.448486",
+      "author": "~litmyl-nopmet",
+      "content": "Building a new marketplace on Urbit",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-01T21:27:45.448486",
+      "author": "~sampel-palnet",
+      "content": "New to Urbit, where should I start?",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-01T21:27:45.448486",
+      "author": "~litmyl-nopmet",
+      "content": "Building a new marketplace on Urbit",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T21:24:48.959971",
+      "author": "~wes",
+      "content": "The latest kernel update looks promising",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T21:11:16.185345",
+      "author": "~sampel-palnet",
+      "content": "Mars is looking more habitable every day",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-01T21:11:16.185345",
+      "author": "~sampel-palnet",
+      "content": "Mars is looking more habitable every day",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T21:06:48.959971",
+      "author": "~nec",
+      "content": "Building a new chat interface, any feedback?",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T21:06:45.448486",
+      "author": "~nec",
+      "content": "Love how stable the network has become",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-01T21:06:45.448486",
+      "author": "~nec",
+      "content": "Love how stable the network has become",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-01T21:06:45.448486",
+      "author": "~nec",
+      "content": "Love how stable the network has become",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T21:01:48.959971",
+      "author": "~litmyl-nopmet",
+      "content": "Anyone having issues with Groups today?",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T20:52:16.185345",
+      "author": "~wes",
+      "content": "Hey everyone! Just launched my new app on Urbit",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-01T20:52:16.185345",
+      "author": "~wes",
+      "content": "Hey everyone! Just launched my new app on Urbit",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T20:50:45.448486",
+      "author": "~wes",
+      "content": "Working on some interesting AI integrations",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-01T20:50:45.448486",
+      "author": "~wes",
+      "content": "Working on some interesting AI integrations",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-01T20:50:45.448486",
+      "author": "~wes",
+      "content": "Working on some interesting AI integrations",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T20:49:16.185345",
+      "author": "~sampel-palnet",
+      "content": "Hey everyone! Just launched my new app on Urbit",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-01T20:49:16.185345",
+      "author": "~sampel-palnet",
+      "content": "Hey everyone! Just launched my new app on Urbit",
+      "type": "message"
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-01T20:34:48.959971",
+      "author": "~zod",
+      "content": "Hey everyone! Just launched my new app on Urbit",
+      "type": "message"
+    }
+  ],
+  "active_groups": [
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "group_name": "test-group",
+      "ship": "~litmyl-nopmet",
+      "recent_messages": 46,
+      "unique_users": 6,
+      "last_activity": "2025-08-02T01:41:16.185345",
+      "activity_level": "High"
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "group_name": "general-chat",
+      "ship": "~zod",
+      "recent_messages": 33,
+      "unique_users": 6,
+      "last_activity": "2025-08-02T02:43:45.448486",
+      "activity_level": "High"
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "group_name": "urbit-dev",
+      "ship": "~sampel-palnet",
+      "recent_messages": 32,
+      "unique_users": 6,
+      "last_activity": "2025-08-01T22:37:16.185345",
+      "activity_level": "High"
+    }
+  ],
+  "ai_insights": [
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-02T17:33:01.704671",
+      "insight": "**Summary and Analysis of /ship/~litmyl-nopmet/test-group Activity**\n\n1. **Main Topics Discussed**: The group primarily discussed Urbit-related topics, including network performance, new app launches,...",
+      "sentiment": "neutral",
+      "key_topics": [],
+      "stats": {
+        "message_count": 14,
+        "user_count": 6,
+        "avg_message_length": 40.9,
+        "most_active_user": "~zod",
+        "most_active_user_messages": 5,
+        "activity_timeline": [
+          {
+            "time": "2025-08-01T19:51:48.959971",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T20:34:48.959971",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:01:48.959971",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:06:48.959971",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:24:48.959971",
+            "author": "~wes",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:59:48.959971",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T22:26:48.959971",
+            "author": "~bud",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T22:53:48.959971",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T23:48:48.959971",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T23:57:48.959971",
+            "author": "~zod",
+            "type": "message"
+          }
+        ],
+        "primary_language": "en",
+        "unique_users": [
+          "~zod",
+          "~wes",
+          "~litmyl-nopmet",
+          "~sampel-palnet",
+          "~bud",
+          "~nec"
+        ]
+      }
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-02T17:32:57.308606",
+      "insight": "**Summary and Analysis of /ship/~zod/general-chat Activity**\n\n1. **Main Topics Discussed**: The group discussed Urbit network experiences, including spawning a \"moon\" (a type of Urbit identity), the h...",
+      "sentiment": "neutral",
+      "key_topics": [],
+      "stats": {
+        "message_count": 6,
+        "user_count": 3,
+        "avg_message_length": 41.0,
+        "most_active_user": "~zod",
+        "most_active_user_messages": 4,
+        "activity_timeline": [
+          {
+            "time": "2025-08-01T18:55:48.959971",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:26:48.959971",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:39:48.959971",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:47:48.959971",
+            "author": "~bud",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:51:48.959971",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T20:34:48.959971",
+            "author": "~zod",
+            "type": "message"
+          }
+        ],
+        "primary_language": "en",
+        "unique_users": [
+          "~zod",
+          "~sampel-palnet",
+          "~bud"
+        ]
+      }
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-02T17:32:52.794809",
+      "insight": "**Summary and Analysis of /ship/~sampel-palnet/urbit-dev Activity**\n\n1. **Main Topics Discussed**: The group discussed Urbit network experiences, with users sharing their interactions with the platfor...",
+      "sentiment": "neutral",
+      "key_topics": [],
+      "stats": {
+        "message_count": 6,
+        "user_count": 3,
+        "avg_message_length": 41.0,
+        "most_active_user": "~zod",
+        "most_active_user_messages": 4,
+        "activity_timeline": [
+          {
+            "time": "2025-08-01T18:55:48.959971",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:26:48.959971",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:39:48.959971",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:47:48.959971",
+            "author": "~bud",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:51:48.959971",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T20:34:48.959971",
+            "author": "~zod",
+            "type": "message"
+          }
+        ],
+        "primary_language": "en",
+        "unique_users": [
+          "~zod",
+          "~sampel-palnet",
+          "~bud"
+        ]
+      }
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-02T16:49:27.172120",
+      "insight": "**Summary and Analysis of /ship/~litmyl-nopmet/test-group Activity**\n\n1. **Main Topics Discussed**: The group primarily discussed Urbit-related topics, including developer tools, new app launches, and...",
+      "sentiment": "neutral",
+      "key_topics": [],
+      "stats": {
+        "message_count": 20,
+        "user_count": 6,
+        "avg_message_length": 41.0,
+        "most_active_user": "~sampel-palnet",
+        "most_active_user_messages": 5,
+        "activity_timeline": [
+          {
+            "time": "2025-08-01T21:11:16.185345",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:34:16.185345",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:47:16.185345",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T22:37:16.185345",
+            "author": "~bud",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T23:36:16.185345",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T23:58:16.185345",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-02T00:20:16.185345",
+            "author": "~bud",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-02T01:21:16.185345",
+            "author": "~wes",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-02T01:38:16.185345",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-02T01:41:16.185345",
+            "author": "~wes",
+            "type": "message"
+          }
+        ],
+        "primary_language": "en",
+        "unique_users": [
+          "~litmyl-nopmet",
+          "~sampel-palnet",
+          "~wes",
+          "~nec",
+          "~zod",
+          "~bud"
+        ]
+      }
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-02T16:49:23.892774",
+      "insight": "**Summary and Analysis of /ship/~zod/general-chat Activity**\n\n1. **Main Topics Discussed**: The group discussed various Urbit-related topics, including the network's habitability, onboarding new users...",
+      "sentiment": "neutral",
+      "key_topics": [],
+      "stats": {
+        "message_count": 7,
+        "user_count": 5,
+        "avg_message_length": 39.9,
+        "most_active_user": "~nec",
+        "most_active_user_messages": 3,
+        "activity_timeline": [
+          {
+            "time": "2025-08-01T16:58:16.185345",
+            "author": "~bud",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T17:00:16.185345",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T17:18:16.185345",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T17:21:16.185345",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T17:38:16.185345",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T18:05:16.185345",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T18:48:16.185345",
+            "author": "~zod",
+            "type": "message"
+          }
+        ],
+        "primary_language": "en",
+        "unique_users": [
+          "~litmyl-nopmet",
+          "~sampel-palnet",
+          "~nec",
+          "~zod",
+          "~bud"
+        ]
+      }
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-02T16:49:20.575998",
+      "insight": "**Summary and Analysis**\n\n1. **Main Topics**: The group /ship/~sampel-palnet/urbit-dev discussed Urbit's development, new app launches, and the network's stability and performance. Some off-topic conv...",
+      "sentiment": "neutral",
+      "key_topics": [],
+      "stats": {
+        "message_count": 14,
+        "user_count": 6,
+        "avg_message_length": 39.9,
+        "most_active_user": "~sampel-palnet",
+        "most_active_user_messages": 4,
+        "activity_timeline": [
+          {
+            "time": "2025-08-01T17:38:16.185345",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T18:05:16.185345",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T18:48:16.185345",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:20:16.185345",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T20:49:16.185345",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T20:52:16.185345",
+            "author": "~wes",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:11:16.185345",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:34:16.185345",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:47:16.185345",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T22:37:16.185345",
+            "author": "~bud",
+            "type": "message"
+          }
+        ],
+        "primary_language": "en",
+        "unique_users": [
+          "~litmyl-nopmet",
+          "~sampel-palnet",
+          "~wes",
+          "~nec",
+          "~zod",
+          "~bud"
+        ]
+      }
+    },
+    {
+      "group": "/ship/~litmyl-nopmet/test-group",
+      "timestamp": "2025-08-02T16:48:54.577869",
+      "insight": "**Summary and Analysis of /ship/~litmyl-nopmet/test-group Activity**\n\n1. **Main Topics Discussed**: The group discussed various Urbit-related topics, including development projects (new chat interface...",
+      "sentiment": "neutral",
+      "key_topics": [],
+      "stats": {
+        "message_count": 12,
+        "user_count": 5,
+        "avg_message_length": 38.5,
+        "most_active_user": "~sampel-palnet",
+        "most_active_user_messages": 4,
+        "activity_timeline": [
+          {
+            "time": "2025-08-01T17:48:45.448486",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T18:03:45.448486",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:17:45.448486",
+            "author": "~wes",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:31:45.448486",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T20:27:45.448486",
+            "author": "~bud",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T20:50:45.448486",
+            "author": "~wes",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:06:45.448486",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:27:45.448486",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:27:45.448486",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:29:45.448486",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          }
+        ],
+        "primary_language": "en",
+        "unique_users": [
+          "~litmyl-nopmet",
+          "~bud",
+          "~nec",
+          "~wes",
+          "~sampel-palnet"
+        ]
+      }
+    },
+    {
+      "group": "/ship/~zod/general-chat",
+      "timestamp": "2025-08-02T16:48:51.867934",
+      "insight": "**Summary and Analysis of /ship/~zod/general-chat Activity**\n\n1. **Main Topics Discussed**: The group discussed various Urbit-related topics, including development projects (new chat interface, market...",
+      "sentiment": "neutral",
+      "key_topics": [],
+      "stats": {
+        "message_count": 20,
+        "user_count": 6,
+        "avg_message_length": 38.6,
+        "most_active_user": "~sampel-palnet",
+        "most_active_user_messages": 5,
+        "activity_timeline": [
+          {
+            "time": "2025-08-01T21:27:45.448486",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:29:45.448486",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:47:45.448486",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T22:06:45.448486",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T22:26:45.448486",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T22:27:45.448486",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T23:28:45.448486",
+            "author": "~wes",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-02T00:51:45.448486",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-02T02:40:45.448486",
+            "author": "~zod",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-02T02:43:45.448486",
+            "author": "~sampel-palnet",
+            "type": "message"
+          }
+        ],
+        "primary_language": "en",
+        "unique_users": [
+          "~litmyl-nopmet",
+          "~zod",
+          "~bud",
+          "~nec",
+          "~wes",
+          "~sampel-palnet"
+        ]
+      }
+    },
+    {
+      "group": "/ship/~sampel-palnet/urbit-dev",
+      "timestamp": "2025-08-02T16:48:48.177230",
+      "insight": "**Summary and Analysis**\n\n1. **Main Topics**: The group discussed various Urbit-related topics, including development projects (new chat interface, marketplace, AI integrations), network stability, an...",
+      "sentiment": "neutral",
+      "key_topics": [],
+      "stats": {
+        "message_count": 12,
+        "user_count": 5,
+        "avg_message_length": 38.5,
+        "most_active_user": "~sampel-palnet",
+        "most_active_user_messages": 4,
+        "activity_timeline": [
+          {
+            "time": "2025-08-01T17:48:45.448486",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T18:03:45.448486",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:17:45.448486",
+            "author": "~wes",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T19:31:45.448486",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T20:27:45.448486",
+            "author": "~bud",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T20:50:45.448486",
+            "author": "~wes",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:06:45.448486",
+            "author": "~nec",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:27:45.448486",
+            "author": "~sampel-palnet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:27:45.448486",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          },
+          {
+            "time": "2025-08-01T21:29:45.448486",
+            "author": "~litmyl-nopmet",
+            "type": "message"
+          }
+        ],
+        "primary_language": "en",
+        "unique_users": [
+          "~litmyl-nopmet",
+          "~bud",
+          "~nec",
+          "~wes",
+          "~sampel-palnet"
+        ]
+      }
+    }
+  ],
+  "last_updated": "2025-08-03T00:20:14.396587",
+  "total_activities": 50,
+  "total_active_groups": 3
+}

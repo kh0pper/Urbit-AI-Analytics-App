@@ -1,10 +1,46 @@
 {
-  "total_discovered": 209,
-  "new_groups": 206,
-  "currently_monitoring": 25,
-  "last_discovery": "2025-08-02 23:32:25",
+  "network_stats": {
+    "total_groups_monitored": 39,
+    "active_groups_24h": 39,
+    "total_activities_collected": 111,
+    "monitoring_since": "2025-08-03T00:04:21.726226",
+    "data_directory": "data"
+  },
+  "discovery_stats": {
+    "timestamp": "2025-08-03T00:03:29.687193",
+    "groups": [],
+    "channels": {}
+  },
+  "monitoring": {
+    "total_groups": 25,
+    "groups": [
+      "/ship/~bitbet-bolbel/urbit-community",
+      "/ship/~darrux-landes/the-forge",
+      "/ship/~halbex-palheb/uf-public/announcements",
+      "/ship/~halbex-palheb/uf-public/chat",
+      "/ship/~halbex-palheb/uf-public/default",
+      "/ship/~halbex-palheb/uf-public/dev",
+      "/ship/~halbex-palheb/uf-public/discussion",
+      "/ship/~halbex-palheb/uf-public/general",
+      "/ship/~halbex-palheb/uf-public/help",
+      "/ship/~halbex-palheb/uf-public/intro",
+      "/ship/~halbex-palheb/uf-public/links",
+      "/ship/~halbex-palheb/uf-public/lobby",
+      "/ship/~halbex-palheb/uf-public/main",
+      "/ship/~halbex-palheb/uf-public/public",
+      "/ship/~halbex-palheb/uf-public/random",
+      "/ship/~halbex-palheb/uf-public/testing",
+      "/ship/~halbex-palheb/uf-public/welcome",
+      "/ship/~litmyl-nopmet/chat",
+      "/ship/~litmyl-nopmet/general",
+      "/ship/~litmyl-nopmet/testing",
+      "/ship/~zod/general",
+      "/ship/~libset-rirbep/landscape",
+      "/ship/~dister-dozzod-basbys/urbitfoundation",
+      "/ship/~sogryp-dister-dozzod-dozzod/network-states",
+      "/ship/~pindet-timmut/hackroom"
+    ]
+  },
   "system_status": "operational",
-  "discovery_methods": 5,
-  "high_priority_count": 66,
-  "last_updated": "2025-08-02T23:41:01.428812"
+  "last_updated": "2025-08-03T00:20:14.398451"
 }

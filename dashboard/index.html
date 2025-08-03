@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urbit AI Analytics Dashboard</title>
+    <title>Urbit AI Analytics Dashboard - Live Activity</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -14,7 +14,7 @@
             min-height: 100vh;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             background: white;
             border-radius: 12px;
@@ -31,14 +31,22 @@
             margin: 0 0 10px 0;
             font-size: 2.5em;
         }
-        .header p {
-            margin: 0;
-            opacity: 0.9;
-            font-size: 1.1em;
+        .live-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            margin-right: 8px;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             padding: 30px;
         }
@@ -55,7 +63,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .stat-number {
-            font-size: 2.5em;
+            font-size: 2.2em;
             font-weight: bold;
             color: #4f46e5;
             margin: 0;
@@ -63,7 +71,7 @@
         .stat-label {
             color: #64748b;
             margin: 5px 0 0 0;
-            font-size: 1.1em;
+            font-size: 1em;
         }
         .section {
             padding: 30px;
@@ -74,45 +82,119 @@
             color: #1e293b;
             font-size: 1.5em;
         }
+        .activity-feed {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+        .activity-item {
+            padding: 15px;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.2s;
+        }
+        .activity-item:hover {
+            background: #f8fafc;
+        }
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        .activity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .activity-author {
+            font-weight: bold;
+            color: #4f46e5;
+        }
+        .activity-group {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.8em;
+            color: #64748b;
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .activity-time {
+            color: #94a3b8;
+            font-size: 0.8em;
+        }
+        .activity-content {
+            color: #475569;
+            line-height: 1.4;
+        }
         .groups-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
+            gap: 20px;
         }
         .group-card {
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            padding: 15px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+        .group-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .group-name {
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 8px;
             font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.9em;
         }
-        .priority-group {
-            background: #fef3c7;
-            border-color: #f59e0b;
+        .group-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
         }
-        .status-badge {
-            display: inline-block;
+        .activity-level {
             padding: 4px 8px;
             border-radius: 12px;
             font-size: 0.8em;
             font-weight: bold;
-            margin-left: 10px;
         }
-        .status-operational {
-            background: #dcfce7;
-            color: #166534;
+        .activity-high { background: #fecaca; color: #dc2626; }
+        .activity-medium { background: #fed7aa; color: #ea580c; }
+        .activity-low { background: #d1fae5; color: #059669; }
+        .ai-insights {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
         }
-        .status-new {
+        .insight-card {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .insight-group {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.8em;
+            color: #0c4a6e;
+            margin-bottom: 10px;
+        }
+        .insight-text {
+            color: #0f172a;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .insight-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .topic-tag {
             background: #dbeafe;
             color: #1d4ed8;
-        }
-        .footer {
-            background: #f8fafc;
-            padding: 20px 30px;
-            text-align: center;
-            color: #64748b;
-            border-top: 1px solid #e2e8f0;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
         }
         .last-updated {
             background: #f0f9ff;
@@ -123,299 +205,460 @@
             text-align: center;
             color: #0c4a6e;
         }
-        .methods-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .method-card {
+        .footer {
             background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 15px;
+            padding: 20px 30px;
             text-align: center;
-        }
-        .method-count {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #7c3aed;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
         }
     </style>
+    <script>
+        // Auto-refresh every 5 minutes
+        setTimeout(() => {
+            window.location.reload();
+        }, 300000);
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>🤖 Urbit AI Analytics</h1>
-            <p>Real-time Network Monitoring & Group Discovery Dashboard</p>
+            <p><span class="live-indicator"></span>Live Network Monitoring & Activity Dashboard</p>
         </div>
         
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="stat-number">209</div>
-                <div class="stat-label">Total Groups Discovered</div>
+                <div class="stat-number">3</div>
+                <div class="stat-label">Active Groups (24h)</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">206</div>
-                <div class="stat-label">New Groups Found</div>
+                <div class="stat-number">111</div>
+                <div class="stat-label">Messages Collected</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">9</div>
+                <div class="stat-label">AI Insights</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">25</div>
-                <div class="stat-label">Currently Monitoring</div>
+                <div class="stat-label">Total Monitored</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">10</div>
-                <div class="stat-label">High-Priority Groups</div>
+                <div class="stat-number">0</div>
+                <div class="stat-label">New Groups Found</div>
             </div>
         </div>
         
         <div class="last-updated">
-            <strong>📅 Last Discovery:</strong> 2025-08-02 23:32:25
-            <span class="status-badge status-operational">System Operational</span>
+            <strong>📅 Last Updated:</strong> 2025-08-03 00:20:14 UTC
+            <span style="margin-left: 20px;"><strong>🔄 Auto-refresh:</strong> Every 5 minutes</span>
         </div>
-        
         <div class="section">
-            <h2>🔥 High-Priority Community Groups</h2>
-            <p>These groups represent major Urbit community hubs and official channels:</p>
-            <div class="groups-grid">
-                <div class="group-card priority-group">
-                    /ship/~nattyv/intro
-                    <span class="status-badge status-new">New</span>
+            <h2>📊 Recent Activity (Last 24 Hours)</h2>
+            <div class="activity-feed">
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~sampel-palnet</span>
+                        <div>
+                            <span class="activity-group">general-chat</span>
+                            <span class="activity-time">02:43</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Building a new marketplace on Urbit</div>
                 </div>
-                <div class="group-card priority-group">
-                    /ship/~haddef-sigwen/lobby
-                    <span class="status-badge status-new">New</span>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~zod</span>
+                        <div>
+                            <span class="activity-group">general-chat</span>
+                            <span class="activity-time">02:40</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">The latest kernel update looks promising</div>
                 </div>
-                <div class="group-card priority-group">
-                    /ship/~bitbet-bolbel/chat
-                    <span class="status-badge status-new">New</span>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~wes</span>
+                        <div>
+                            <span class="activity-group">test-group</span>
+                            <span class="activity-time">01:41</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Building a new chat interface, any feedback?</div>
                 </div>
-                <div class="group-card priority-group">
-                    /ship/~nattyv/general
-                    <span class="status-badge status-new">New</span>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~sampel-palnet</span>
+                        <div>
+                            <span class="activity-group">test-group</span>
+                            <span class="activity-time">01:38</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Working on some interesting AI integrations</div>
                 </div>
-                <div class="group-card priority-group">
-                    /ship/~bitbet-bolbel/help
-                    <span class="status-badge status-new">New</span>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~wes</span>
+                        <div>
+                            <span class="activity-group">test-group</span>
+                            <span class="activity-time">01:21</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Love how stable the network has become</div>
                 </div>
-                <div class="group-card priority-group">
-                    /ship/~bitbet-bolbel/random
-                    <span class="status-badge status-new">New</span>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~litmyl-nopmet</span>
+                        <div>
+                            <span class="activity-group">general-chat</span>
+                            <span class="activity-time">00:51</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Love how stable the network has become</div>
                 </div>
-                <div class="group-card priority-group">
-                    /ship/~solfer-magfed/welcome
-                    <span class="status-badge status-new">New</span>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~bud</span>
+                        <div>
+                            <span class="activity-group">test-group</span>
+                            <span class="activity-time">00:20</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">The developer tools keep getting better</div>
                 </div>
-                <div class="group-card priority-group">
-                    /ship/~nattyv/random
-                    <span class="status-badge status-new">New</span>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~litmyl-nopmet</span>
+                        <div>
+                            <span class="activity-group">test-group</span>
+                            <span class="activity-time">23:58</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Just finished reading the Urbit whitepaper - mind blown!</div>
                 </div>
-                <div class="group-card priority-group">
-                    /ship/~solfer-magfed/lobby
-                    <span class="status-badge status-new">New</span>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~zod</span>
+                        <div>
+                            <span class="activity-group">test-group</span>
+                            <span class="activity-time">23:57</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Excited about the upcoming Urbit conference</div>
                 </div>
-                <div class="group-card priority-group">
-                    /ship/~nattyv/welcome
-                    <span class="status-badge status-new">New</span>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~litmyl-nopmet</span>
+                        <div>
+                            <span class="activity-group">test-group</span>
+                            <span class="activity-time">23:48</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Building a new marketplace on Urbit</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~nec</span>
+                        <div>
+                            <span class="activity-group">test-group</span>
+                            <span class="activity-time">23:36</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Working on some interesting AI integrations</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~wes</span>
+                        <div>
+                            <span class="activity-group">general-chat</span>
+                            <span class="activity-time">23:28</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">The latest kernel update looks promising</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~sampel-palnet</span>
+                        <div>
+                            <span class="activity-group">test-group</span>
+                            <span class="activity-time">22:53</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">The latest kernel update looks promising</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~bud</span>
+                        <div>
+                            <span class="activity-group">test-group</span>
+                            <span class="activity-time">22:37</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Working on some interesting AI integrations</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~bud</span>
+                        <div>
+                            <span class="activity-group">urbit-dev</span>
+                            <span class="activity-time">22:37</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Working on some interesting AI integrations</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~nec</span>
+                        <div>
+                            <span class="activity-group">general-chat</span>
+                            <span class="activity-time">22:27</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">The developer tools keep getting better</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~bud</span>
+                        <div>
+                            <span class="activity-group">test-group</span>
+                            <span class="activity-time">22:26</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Mars is looking more habitable every day</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~nec</span>
+                        <div>
+                            <span class="activity-group">general-chat</span>
+                            <span class="activity-time">22:26</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">The network feels much faster lately</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~litmyl-nopmet</span>
+                        <div>
+                            <span class="activity-group">general-chat</span>
+                            <span class="activity-time">22:06</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Excited about the upcoming Urbit conference</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-header">
+                        <span class="activity-author">~nec</span>
+                        <div>
+                            <span class="activity-group">test-group</span>
+                            <span class="activity-time">21:59</span>
+                        </div>
+                    </div>
+                    <div class="activity-content">Urbit's approach to identity is revolutionary</div>
                 </div>
             </div>
         </div>
-        
         <div class="section">
-            <h2>📊 Discovery Methods Performance</h2>
-            <div class="methods-grid">
-                <div class="method-card">
-                    <div class="method-count">0</div>
-                    <div>Web Interface</div>
+            <h2>🔥 Most Active Groups</h2>
+            <div class="groups-grid">
+                <div class="group-card">
+                    <div class="group-name">/ship/~litmyl-nopmet/test-group</div>
+                    <div class="group-stats">
+                        <span>46 messages • 6 users</span>
+                        <span class="activity-level activity-high">High</span>
+                    </div>
+                    <div style="color: #64748b; font-size: 0.9em;">
+                        Ship: ~litmyl-nopmet
+                    </div>
                 </div>
-                <div class="method-card">
-                    <div class="method-count">157</div>
-                    <div>Known Patterns</div>
+                <div class="group-card">
+                    <div class="group-name">/ship/~zod/general-chat</div>
+                    <div class="group-stats">
+                        <span>33 messages • 6 users</span>
+                        <span class="activity-level activity-high">High</span>
+                    </div>
+                    <div style="color: #64748b; font-size: 0.9em;">
+                        Ship: ~zod
+                    </div>
                 </div>
-                <div class="method-card">
-                    <div class="method-count">15</div>
-                    <div>Community Hubs</div>
-                </div>
-                <div class="method-card">
-                    <div class="method-count">132</div>
-                    <div>Ship Exploration</div>
+                <div class="group-card">
+                    <div class="group-name">/ship/~sampel-palnet/urbit-dev</div>
+                    <div class="group-stats">
+                        <span>32 messages • 6 users</span>
+                        <span class="activity-level activity-high">High</span>
+                    </div>
+                    <div style="color: #64748b; font-size: 0.9em;">
+                        Ship: ~sampel-palnet
+                    </div>
                 </div>
             </div>
         </div>
-        
         <div class="section">
-            <h2>📋 Recently Discovered Groups</h2>
-            <p>Latest groups found by the discovery system (showing first 20):</p>
-            <div class="groups-grid">
-                <div class="group-card">
-                    /ship/~pindet-timmut/announcements
+            <h2>🧠 Latest AI Insights</h2>
+            <div class="ai-insights">
+                <div class="insight-card">
+                    <div class="insight-group">/ship/~litmyl-nopmet/test-group</div>
+                    <div class="insight-text">**Summary and Analysis of /ship/~litmyl-nopmet/test-group Activity**
+
+1. **Main Topics Discussed**: The group primarily discussed Urbit-related topics, including network performance, new app launches,...</div>
                 </div>
-                <div class="group-card">
-                    /ship/~libset-rirbep/general
+                <div class="insight-card">
+                    <div class="insight-group">/ship/~zod/general-chat</div>
+                    <div class="insight-text">**Summary and Analysis of /ship/~zod/general-chat Activity**
+
+1. **Main Topics Discussed**: The group discussed Urbit network experiences, including spawning a "moon" (a type of Urbit identity), the h...</div>
                 </div>
-                <div class="group-card">
-                    /ship/~halbex-palheb/help
+                <div class="insight-card">
+                    <div class="insight-group">/ship/~sampel-palnet/urbit-dev</div>
+                    <div class="insight-text">**Summary and Analysis of /ship/~sampel-palnet/urbit-dev Activity**
+
+1. **Main Topics Discussed**: The group discussed Urbit network experiences, with users sharing their interactions with the platfor...</div>
                 </div>
-                <div class="group-card">
-                    /ship/~halbex-palheb/links
+                <div class="insight-card">
+                    <div class="insight-group">/ship/~litmyl-nopmet/test-group</div>
+                    <div class="insight-text">**Summary and Analysis of /ship/~litmyl-nopmet/test-group Activity**
+
+1. **Main Topics Discussed**: The group primarily discussed Urbit-related topics, including developer tools, new app launches, and...</div>
                 </div>
-                <div class="group-card">
-                    /ship/~litmyl-nopmet/help
+                <div class="insight-card">
+                    <div class="insight-group">/ship/~zod/general-chat</div>
+                    <div class="insight-text">**Summary and Analysis of /ship/~zod/general-chat Activity**
+
+1. **Main Topics Discussed**: The group discussed various Urbit-related topics, including the network's habitability, onboarding new users...</div>
                 </div>
-                <div class="group-card">
-                    /ship/~litmyl-nopmet/lounge
+                <div class="insight-card">
+                    <div class="insight-group">/ship/~sampel-palnet/urbit-dev</div>
+                    <div class="insight-text">**Summary and Analysis**
+
+1. **Main Topics**: The group /ship/~sampel-palnet/urbit-dev discussed Urbit's development, new app launches, and the network's stability and performance. Some off-topic conv...</div>
                 </div>
-                <div class="group-card">
-                    /ship/~zod/discussion
+                <div class="insight-card">
+                    <div class="insight-group">/ship/~litmyl-nopmet/test-group</div>
+                    <div class="insight-text">**Summary and Analysis of /ship/~litmyl-nopmet/test-group Activity**
+
+1. **Main Topics Discussed**: The group discussed various Urbit-related topics, including development projects (new chat interface...</div>
                 </div>
-                <div class="group-card">
-                    /ship/~nattyv/intro
+                <div class="insight-card">
+                    <div class="insight-group">/ship/~zod/general-chat</div>
+                    <div class="insight-text">**Summary and Analysis of /ship/~zod/general-chat Activity**
+
+1. **Main Topics Discussed**: The group discussed various Urbit-related topics, including development projects (new chat interface, market...</div>
                 </div>
-                <div class="group-card">
-                    /ship/~darrux-landes/discussion
-                </div>
-                <div class="group-card">
-                    /ship/~halbex-palheb/welcome
-                </div>
-                <div class="group-card">
-                    /ship/~haddef-sigwen/lobby
-                </div>
-                <div class="group-card">
-                    /ship/~libset-rirbep/community
-                </div>
-                <div class="group-card">
-                    /ship/~dister-dozzod-basbys/community
-                </div>
-                <div class="group-card">
-                    /ship/~bitbet-bolbel/chat
-                </div>
-                <div class="group-card">
-                    /ship/~darrux-landes/random
-                </div>
-                <div class="group-card">
-                    /ship/~nattyv/general
-                </div>
-                <div class="group-card">
-                    /ship/~dister-dozzod-basbys/help
-                </div>
-                <div class="group-card">
-                    /ship/~zod/lobby
-                </div>
-                <div class="group-card">
-                    /ship/~darrux-landes/chat
-                </div>
-                <div class="group-card">
-                    /ship/~pindet-timmut/welcome
-                </div>
-                <div class="group-card" style="text-align: center; font-style: italic; background: #e2e8f0;">
-                    ... and 186 more groups
+                <div class="insight-card">
+                    <div class="insight-group">/ship/~sampel-palnet/urbit-dev</div>
+                    <div class="insight-text">**Summary and Analysis**
+
+1. **Main Topics**: The group discussed various Urbit-related topics, including development projects (new chat interface, marketplace, AI integrations), network stability, an...</div>
                 </div>
             </div>
         </div>
-        
         <div class="section">
-            <h2>📈 Currently Monitoring</h2>
-            <p>Groups actively monitored by the AI analytics system:</p>
-            <div class="groups-grid">
-                <div class="group-card">
+            <h2>📈 Currently Monitoring (25 Groups)</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px;">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~bitbet-bolbel/urbit-community
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~darrux-landes/the-forge
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/announcements
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/chat
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/default
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/dev
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/discussion
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/general
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/help
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/intro
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/links
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/lobby
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/main
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/public
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/random
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/testing
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~halbex-palheb/uf-public/welcome
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~litmyl-nopmet/chat
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~litmyl-nopmet/general
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~litmyl-nopmet/testing
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~zod/general
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~libset-rirbep/landscape
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~dister-dozzod-basbys/urbitfoundation
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~sogryp-dister-dozzod-dozzod/network-states
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
-                <div class="group-card">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; font-family: 'Monaco', 'Menlo', monospace; font-size: 0.85em;">
                     /ship/~pindet-timmut/hackroom
-                    <span class="status-badge status-operational">Active</span>
+                    <span class="activity-level activity-low" style="float: right;">Monitoring</span>
                 </div>
             </div>
         </div>
@@ -423,8 +666,8 @@
         <div class="footer">
             <p>🤖 Urbit AI Analytics Dashboard | 
             <a href="https://github.com/kh0pper/urbit-analytics" target="_blank">View on GitHub</a> | 
-            Last Updated: 2025-08-02 23:41:01</p>
-            <p>System Status: <span class="status-badge status-operational">Operational</span></p>
+            Last Updated: 2025-08-03 00:20:14</p>
+            <p>Monitoring 25 groups • Discovered 0 total groups</p>
         </div>
     </div>
 </body>
