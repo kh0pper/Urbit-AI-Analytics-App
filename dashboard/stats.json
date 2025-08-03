@@ -3,11 +3,11 @@
     "total_groups_monitored": 39,
     "active_groups_24h": 39,
     "total_activities_collected": 111,
-    "monitoring_since": "2025-08-03T00:04:21.726226",
+    "monitoring_since": "2025-08-03T02:11:08.913374",
     "data_directory": "data"
   },
   "discovery_stats": {
-    "timestamp": "2025-08-03T00:03:29.687193",
+    "timestamp": "2025-08-03T02:09:35.765619",
     "groups": [],
     "channels": {}
   },
@@ -42,5 +42,5 @@
     ]
   },
   "system_status": "operational",
-  "last_updated": "2025-08-03T00:20:14.398451"
+  "last_updated": "2025-08-03T02:24:20.395587"
 }
